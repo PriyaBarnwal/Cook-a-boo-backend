@@ -66,6 +66,10 @@ const RecipeSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now()
+  },
+  dummy: {
+    type: Boolean,
+    default: false
   }
 })
 
