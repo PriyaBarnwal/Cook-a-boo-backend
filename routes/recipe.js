@@ -1,8 +1,8 @@
-import express from 'express'
-import {body} from 'express-validator'
+const express = require('express')
+const {body} = require('express-validator')
 
-import * as RecipeController from '../controllers/RecipeController'
-import * as AuthController from '../controllers/AuthController'
+const RecipeController = require('../controllers/RecipeController')
+const AuthController = require('../controllers/AuthController')
 
 const Router = express.Router()
 

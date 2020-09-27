@@ -1,6 +1,6 @@
-import express from 'express'
-import * as AuthController from '../controllers/AuthController'
-import * as ProfileController from '../controllers/ProfileController'
+const express = require('express')
+const AuthController = require('../controllers/AuthController')
+const ProfileController = require('../controllers/ProfileController')
 
 const Router = express.Router()
 

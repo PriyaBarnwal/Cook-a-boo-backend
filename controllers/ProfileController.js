@@ -1,9 +1,9 @@
 
-import User from '../models/UserModel'
-import AppError from '../utils/AppError'
-import catchAsync from '../utils/catchAsync'
+const User = require('../models/UserModel')
+const AppError = require('../utils/AppError')
+const catchAsync = require('../utils/catchAsync')
 
-export const getAllProfiles = catchAsync(async(req, res, next)=> {
+exports.getAllProfiles = catchAsync(async(req, res, next)=> {
   let profiles
 
   if(req.query) 
@@ -18,7 +18,7 @@ export const getAllProfiles = catchAsync(async(req, res, next)=> {
   })
 })
 
-export const getProfile = catchAsync(async(req, res, next)=> {
+exports.getProfile = catchAsync(async(req, res, next)=> {
   let user = await User.findById(req.params.userid)
 
   if(!user) return next(new AppError('Chef not found', 404))
@@ -29,7 +29,7 @@ export const getProfile = catchAsync(async(req, res, next)=> {
   })
 })
 
-export const updateProfile = catchAsync(async(req, res, next)=> {
+exports.updateProfile = catchAsync(async(req, res, next)=> {
   let {name, youtube, location, bio} = req.body
 
   if(req.params.userid != req.user._id.toString()) 

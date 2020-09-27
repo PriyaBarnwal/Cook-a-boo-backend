@@ -1,5 +1,5 @@
-import nodemailer from 'nodemailer'
-import config from 'config'
+const nodemailer = require('nodemailer')
+const config = require('config')
 
 const sendEmail = async(options) => {
   //create transporter object
@@ -21,4 +21,4 @@ const sendEmail = async(options) => {
   })
 }
 
-export default sendEmail
+module.exports = sendEmail

@@ -1,9 +1,9 @@
-import Recipe from '../models/RecipeModel'
-import User from '../models/UserModel'
-import AppError from '../utils/AppError'
-import catchAsync from '../utils/catchAsync'
+const Recipe = require('../models/RecipeModel')
+const User = require('../models/UserModel')
+const AppError = require('../utils/AppError')
+const catchAsync = require('../utils/catchAsync')
 
-export const getAllRecipes = catchAsync(async(req, res, next)=> {
+exports.getAllRecipes = catchAsync(async(req, res, next)=> {
   let recipes
 
   if(req.query) 
@@ -18,7 +18,7 @@ export const getAllRecipes = catchAsync(async(req, res, next)=> {
   })
 })
 
-export const createRecipe = catchAsync(async(req, res, next)=> {
+exports.createRecipe = catchAsync(async(req, res, next)=> {
   let {title, summary, servings, image_url, Cookingtime, tags, ingredients, steps} = req.body
 
   let recipe = new Recipe({
@@ -40,7 +40,7 @@ export const createRecipe = catchAsync(async(req, res, next)=> {
   })
 })
 
-export const TopTenGenerator = catchAsync(async(req, res, next)=> {
+exports.TopTenGenerator = catchAsync(async(req, res, next)=> {
   let topTenRecipes = await Recipe.find().sort('-ratingsAverage').limit(10)
 
   res.status(200).json({
@@ -49,7 +49,7 @@ export const TopTenGenerator = catchAsync(async(req, res, next)=> {
   })
 })
 
-export const popularGenerator = catchAsync(async(req, res, next)=> {
+exports.popularGenerator = catchAsync(async(req, res, next)=> {
   let popularRecipes = await Recipe.find({date:{$gte: new Date(new Date() - 7 * 60 * 60 * 24 * 1000)}}).sort('-ratingsAverage').limit(10)
 
   res.status(200).json({
@@ -58,7 +58,7 @@ export const popularGenerator = catchAsync(async(req, res, next)=> {
   })
 })
 
-export const getRecipe = catchAsync(async(req, res, next)=> {
+exports.getRecipe = catchAsync(async(req, res, next)=> {
   let recipe = await Recipe.findById(req.params.recipeid)
 
   if(!recipe) return next(new AppError('Recipe not found', 404))
@@ -69,7 +69,7 @@ export const getRecipe = catchAsync(async(req, res, next)=> {
   })
 })
 
-export const updateRecipeRatings = catchAsync(async(req, res, next)=> {
+exports.updateRecipeRatings = catchAsync(async(req, res, next)=> {
   let recipe = await Recipe.findById(req.params.recipeid)
   
   if(!recipe) return next(new AppError('Recipe not found', 404))
@@ -91,7 +91,7 @@ export const updateRecipeRatings = catchAsync(async(req, res, next)=> {
   })
 })
 
-export const deleteRecipe = catchAsync(async(req, res, next)=> {
+exports.deleteRecipe = catchAsync(async(req, res, next)=> {
   let recipe = await Recipe.findById(req.params.recipeid)
   
   if(!recipe) return next(new AppError('Recipe not found', 404))
@@ -112,7 +112,7 @@ export const deleteRecipe = catchAsync(async(req, res, next)=> {
   
 })
 
-export const toggleLike = catchAsync(async(req, res, next)=> {
+exports.toggleLike = catchAsync(async(req, res, next)=> {
   let recipe = await Recipe.findById(req.params.recipeid)
   
   if(!recipe) return next(new AppError('Recipe not found', 404))

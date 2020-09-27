@@ -1,6 +1,6 @@
-import express from 'express'
-import upload from '../utils/imageUtils'
-import * as AuthController from '../controllers/AuthController'
+const express = require('express')
+const upload = require('../utils/imageUtils')
+const AuthController = require('../controllers/AuthController')
 
 const Router = express.Router()
 const singleUpload = upload.single('image')

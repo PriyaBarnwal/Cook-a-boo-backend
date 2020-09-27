@@ -1,4 +1,4 @@
-import AppError from '../utils/AppError'
+const AppError = require('../utils/AppError')
 
 let handleCastError = (error) => {
   return new AppError(`invalid value ${error.value}. No page found.`,404)

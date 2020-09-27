@@ -1,7 +1,7 @@
-import aws from 'aws-sdk'
-import multer from 'multer'
-import multerS3 from 'multer-s3'
-import config from 'config'
+const aws = require('aws-sdk')
+const multer = require('multer')
+const multerS3 = require('multer-s3')
+const config = require('config')
 
 aws.config.update({
   secretAccessKey: config.get('AWS_SECRET_ACCESS_KEY'),
@@ -20,7 +20,7 @@ const fileFilter = (req, file, cb) => {
   }
 }
 
-const upload = multer({
+upload = multer({
   fileFilter,
   limits: {
     fileSize: 1024*1024
@@ -39,4 +39,4 @@ const upload = multer({
   })
 })
 
-export default upload
+module.exports = upload

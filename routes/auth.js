@@ -1,6 +1,6 @@
-import express from 'express'
-import * as AuthController from '../controllers/AuthController'
-import {body} from 'express-validator'
+const express = require('express')
+const AuthController = require('../controllers/AuthController')
+const {body} = require('express-validator')
 
 
 const Router = express.Router()

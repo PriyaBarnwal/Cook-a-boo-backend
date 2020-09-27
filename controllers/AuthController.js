@@ -1,13 +1,13 @@
-import config from 'config'
-import bcrypt from 'bcrypt'
-import crypto from 'crypto'
-import jwt from 'jsonwebtoken'
-import User from '../models/UserModel'
-import AppError from '../utils/AppError'
-import catchAsync from '../utils/catchAsync'
-import sendEmail from '../utils/emailUtils'
+const config = require('config')
+const bcrypt = require('bcrypt')
+const crypto = require('crypto')
+const jwt = require('jsonwebtoken')
+const User = require('../models/UserModel')
+const AppError = require('../utils/AppError')
+const catchAsync = require('../utils/catchAsync')
+const sendEmail = require('../utils/emailUtils')
 
-export const signUp = catchAsync(async(req, res, next)=> {
+exports.signUp = catchAsync(async(req, res, next)=> {
   let {name, email, password, photoUrl} = req.body
 
   let newUser = new User({
@@ -29,7 +29,7 @@ export const signUp = catchAsync(async(req, res, next)=> {
   })
 })
 
-export const login = catchAsync(async(req, res, next)=> {
+exports.login = catchAsync(async(req, res, next)=> {
   let {email, password} = req.body
 
   if(!email || !password) return next(new AppError('Please provide credentials to login', 400))
@@ -49,7 +49,7 @@ export const login = catchAsync(async(req, res, next)=> {
   })
 })
 
-export const checkAuth = catchAsync(async(req, res, next) => {
+exports.checkAuth = catchAsync(async(req, res, next) => {
   let token
   //check if authentication token exists
   if(req.headers.authorization && req.headers.authorization.startsWith('Bearer'))
@@ -70,7 +70,7 @@ export const checkAuth = catchAsync(async(req, res, next) => {
   next()
 })
 
-export const forgotPassword = catchAsync(async(req, res, next) => {
+exports.forgotPassword = catchAsync(async(req, res, next) => {
   //find user
   let user = await User.findOne({email: req.body.email})
   if(!user) return next(new AppError('This email has not been registered', 404))
@@ -101,7 +101,7 @@ export const forgotPassword = catchAsync(async(req, res, next) => {
   }
 })
 
-export const resetPassword = catchAsync(async(req, res, next) => {
+exports.resetPassword = catchAsync(async(req, res, next) => {
   //check if token is valid(fetch user based on token and whther it has expired)
   let token = req.params.token,
     passwordToken = crypto.createHash('sha256').update(token).digest('hex')
@@ -132,7 +132,7 @@ export const resetPassword = catchAsync(async(req, res, next) => {
   })
 })
 
-export const changePassword = catchAsync(async(req, res, next) => {
+exports.changePassword = catchAsync(async(req, res, next) => {
   let user = await User.findById(req.user._id).select('+password')
   console.log(user.password)
   console.log(req.body.oldPassword)

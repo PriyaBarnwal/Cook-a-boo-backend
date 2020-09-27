@@ -1,4 +1,4 @@
-import {validationResult} from 'express-validator'
+const {validationResult} = require('express-validator')
 
 let catchAsync =(func) => {
   return (req, res, next) => {
@@ -12,4 +12,4 @@ let catchAsync =(func) => {
   }
 }
 
-export default catchAsync
+module.exports = catchAsync
